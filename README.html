@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="theo-lincke-software-engineering-and-applied-math-portfolio">Theo Lincke Software Engineering and Applied Math Portfolio</h1>
+<p>This is a vast summary of my experience as an applied math and computer science major at CU Boulder. The intention is not to show every project, but to include a project from various fields from pure math to  fun personal projects. Each project is labeled with a skill set applied to it.</p>
+<p>You can interact with every one of these projects on Linux (They all work on Arch and Ubuntu) with very minimal setup (except for an OpenCV build for some). I understand that many professionals have limited time, so if there is any required setup, it is just a few lines of bash code that you can run.</p>
+<p>Windows Support for most of these projects is non existent.</p>
+<h2 id="pure-math">1. (Pure Math)</h2>
+<h3 id="riemann-hilbert-problems-and-inverse-scattering-.rh_inverse_scattering">Riemann Hilbert Problems and Inverse Scattering (<em>./RH_Inverse_Scattering</em>)</h3>
+<p>The folder RH_Inverse_Scattering highlights a pure mathematics project I did as a Sophomore. The highlight of this project is the paper I wrote with two other classmates on complex methods for solving a few nonlinear wave equations. The paper has enough information to understand the relevance of the project.</p>
+<h2 id="applied-math">2. (Applied Math)</h2>
+<h3 id="svd-image-compression--recognition-.svd_image_compression">SVD Image Compression / Recognition (<em>./SVD_Image_Compression</em>)</h3>
+<p>The folder SVD_Image_Compression highlights a project I did as a Freshman using Matlab. The Highlight of this project is the paper I wrote with two other classmates on image compression and facial reconstruction. The paper has enough information to understand the relevance of the project.</p>
+<h2 id="fun-personal-project">3. (Fun Personal Project)</h2>
+<h3 id="any-dimensional-rubiks-cube-solver-.rubikscube">Any Dimensional Rubiks Cube Solver (<em>./rubiksCube</em>)</h3>
+<p>This is a project I worked on for fun my Freshman year. All it does is solve a logical rubiks cube. Simply type</p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token function">cd</span> ./rubiksCube
+<span class="token comment"># sudo apt install default-jre # Install java</span>
+./run 20 1000 <span class="token comment"># Solve a 20x20 rubiks cube after 1000 randomized scramble moves</span>
+</code></pre>
+<h2 id="large-complicated-project-and-networking">4. (Large Complicated Project and Networking)</h2>
+<h3 id="sentinet-.sentinet">Sentinet (<em>./sentinet</em>)</h3>
+<p>This is a cross language socket based communication network for robotics inspired by ROS.<br>
+This is a very large project so it requires a bit more set up, but the following instructions will guide you through a very simple three part publisher / proxy / subscriber. You will run the publisher in python and the subscriber in C++ (to showcase the multi language and serialization tools).<br>
+Assuming OpenCV is already build</p>
+<h4 id="setup--dependencies">Setup / Dependencies</h4>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token comment"># Dependencies</span>
+$ <span class="token function">cd</span> ./sentinet/sentinet_cpp
+$ <span class="token function">sudo</span> apt <span class="token function">install</span> cmake curl libcurl4-gnutls-dev autoconf automake libtool g++ unzip libzmq3-dev check libgtest-dev
+<span class="token comment"># Install april tags</span>
+$ <span class="token function">cd</span> ./sentinet_cpp/third_party
+$ <span class="token function">tar</span> xvf apriltag-3.1.1.tar.gz
+$ <span class="token function">cd</span> apriltag-3.1.1
+$ cmake <span class="token keyword">.</span> <span class="token operator">&amp;&amp;</span> <span class="token function">sudo</span> <span class="token function">make</span> <span class="token function">install</span>
+<span class="token comment"># Build the C++ code</span>
+$ <span class="token function">cd</span> <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/ <span class="token comment">#sentinet_cpp root</span>
+$ <span class="token function">make</span>
+<span class="token comment"># Install python dependencies</span>
+$ pip3 <span class="token function">install</span> zmq
+</code></pre>
+<h4 id="running-the-code">Running The Code</h4>
+<h5 id="c-subscriber-and-proxy">C++ (subscriber and proxy)</h5>
+<p>Open 2 terminals (1 for the subscriber and 1 for the proxy)<br>
+Run the subscriber</p>
+<pre class=" language-bash"><code class="prism  language-bash">$ <span class="token function">cd</span> <span class="token operator">&lt;</span>path_to_sentinet_cpp<span class="token operator">&gt;</span>/build/x86_64/core/bin
+$ ./kermit_kernel --debug on <span class="token comment"># Debug on tells it that there is no serial communication to be made yet with a microcontroller</span>
+</code></pre>
+<p>Run the Proxy in a separate terminal</p>
+<pre class=" language-bash"><code class="prism  language-bash">$ <span class="token function">cd</span> <span class="token operator">&lt;</span>path_to_sentinet_cpp<span class="token operator">&gt;</span>/build/x86_64/core/bin
+$ ./kermit_proxy --cmd_vel --time -1 <span class="token comment"># -1 = infinite time, press ctrl + C to quit or change time to a time in seconds</span>
+</code></pre>
+<h5 id="python-publisher">Python (publisher)</h5>
+<p>In another (third) terminal, execute:</p>
+<pre class=" language-bash"><code class="prism  language-bash">$ <span class="token function">cd</span> <span class="token operator">&lt;</span>path_to_sentinet_py<span class="token operator">&gt;</span>
+$ python3 main.py
+</code></pre>
+<p>Note that this runs for 10 seconds</p>
+<h4 id="what-am-i-seeing">What am I seeing</h4>
+<p>Assuming everything works, you will see proxy print out a hexadecimal value (the message) and the subscriber (kermit_kernel) should print the same hex value and two numbers. The two numbers are the interpretation of the message as a linear and angular value. Note that the messages are sophisticated enough that end hosts don’t need to assume the structure (they have headers and a logical format to represent various data types - see sentient_msg_pkg for the message library).</p>
+<p>This project is far more complex. I have written a serial communication library using termios to communicate with a teensy3.6 micro controller. To browse more of the code, refer to <em>./extraneous</em>.</p>
+<h2 id="machine-learning">5. (Machine Learning)</h2>
+<h3 id="neural-network-from-the-ground-up-in-c-.ctensor">Neural Network From the ground up in C++ (<em>./cTensor</em>)</h3>
+<p>This was a project I did my freshman year on constructing a neural network using C++. I did not use any native linear algebra libraries (opencv is just for reading the images), and I wrote RREF algorithms, multiplication / addition etc. from scratch in src/Kernel.cpp.</p>
+<p>The setup for this project is a lot more lengthy due to the required mnist image database. However, the linear algebra library I wrote works just fine.</p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token function">cd</span> ./cTensor
+<span class="token function">mkdir</span> build
+<span class="token function">cd</span> build
+cmake <span class="token punctuation">..</span>/src
+<span class="token function">make</span>
+./run <span class="token comment"># Has instructions - use option 1, option 2 is a back propigation example that requries thousands of image datasets</span>
+</code></pre>
+<h2 id="numerical-analysis">6. (Numerical Analysis)</h2>
+<h3 id="nonlinear-ode-solver-using-rk4-.nonlinear_ode_solver">Nonlinear ODE Solver using RK4 (<em>./nonlinear_ODE_solver</em>)</h3>
+<p>This is a python module using RK4 to solve nonlinear (or linear) system of differential equations. I have included a few papers in the folder called ./examples on some interesting systems for the fascinated reader. Otherwise, the example module is ready to be executed</p>
+<pre><code>cd nonlinear_ODE_solver
+sudo apt install python3-pip
+pip3 install matplotlib numpy
+python3 example.py
+</code></pre>
+</div>
+</body>
+
+</html>
