@@ -1,6 +1,6 @@
-﻿# Theo Lincke Software Engineering and Applied Math Portfolio
+# Theo Lincke Software Engineering and Applied Math Portfolio
 
-See the complete portfolio with code: https://github.com/tlincke125/portfolio
+## See the website here: tlincke125.github.io
 
 This is a vast summary of my experience as an applied math and computer science major at CU Boulder. The intention is not to show every project, but to include a project from various fields from pure math to  fun personal projects. Each project is labeled with a skill set applied to it.
 
