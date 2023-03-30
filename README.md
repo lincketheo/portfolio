@@ -19,7 +19,7 @@ The folder SVD_Image_Compression highlights a project I did as a Freshman using 
 
 ## 3. (Fun Personal Project) 
 ### Any Dimensional Rubiks Cube Solver (*./rubiksCube*)
-This is a project I worked on for fun my Freshman year. All it does is solve a logical rubiks cube. Simply type 
+This is a project I worked on for fun my Freshman year. Coding standards / clean principles followed are fairly minimal (I had no idea how to make a clean application at the time). All it does is solve a logical rubiks cube - I implemented some javascript at one point and a 3d javascript library, but it wasn't that great. Simply type 
 ```bash
 cd ./rubiksCube
 # sudo apt install default-jre # Install java
@@ -73,7 +73,7 @@ Note that this runs for 10 seconds
 #### What am I seeing
 Assuming everything works, you will see proxy print out a hexadecimal value (the message) and the subscriber (kermit_kernel) should print the same hex value and two numbers. The two numbers are the interpretation of the message as a linear and angular value. Note that the messages are sophisticated enough that end hosts don't need to assume the structure (they have headers and a logical format to represent various data types - see sentient_msg_pkg for the message library). 
 
-This project is far more complex. I have written a serial communication library using termios to communicate with a teensy3.6 micro controller. To browse more of the code, refer to *./extraneous*.
+The project is using my own custom serialization protocol in c, which consolidates messages into small bite sized chunks.
 
 ## 5. (Machine Learning) 
 ### Neural Network From the ground up in C++ (*./cTensor*)
